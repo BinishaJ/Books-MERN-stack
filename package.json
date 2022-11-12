@@ -1,0 +1,23 @@
+{
+  "name": "books-directory",
+  "version": "1.0.0",
+  "description": "MERN stack of books directory",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"cd backend && npm start\" \"cd frontend && npm start\" "
+  },
+  "keywords": [
+    "books",
+    "api",
+    "react",
+    "mern",
+    "mongodb",
+    "express",
+    "node"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^7.5.0"
+  }
+}
