@@ -71,12 +71,16 @@ router.delete("/:isbn", async (req, res) => {
 
     //no book with isbn
     if (findBook.length < 1) {
-      return res.status(404).send(`No book found with ISBN ${req.params.isbn}`);
+      return res
+        .status(404)
+        .json({ message: `No book found with ISBN ${req.params.isbn}` });
     }
 
     //delete book
     const newBooks = await Book.deleteOne({ isbn: req.params.isbn });
-    res.status(201).send(`Book with ISBN ${req.params.isbn} deleted!`);
+    res
+      .status(201)
+      .json({ message: `Book with ISBN ${req.params.isbn} deleted!` });
   } catch (err) {
     res.json({ message: err });
   }
@@ -87,14 +91,13 @@ router.patch("/:isbn", async (req, res) => {
     //check for isbn
     const findBook = await Book.find({ isbn: req.params.isbn });
     if (findBook.length < 1) {
-      return res.status(404).send(`No book with ISBN ${req.params.isbn} found`);
+      return res
+        .status(404)
+        .json({ message: `No book with ISBN ${req.params.isbn} found` });
     }
 
     //update
-    const updateBook = await Book.updateOne(
-      { isbn: req.params.isbn },
-      { $set: req.body }
-    );
+    await Book.updateOne({ isbn: req.params.isbn }, { $set: req.body });
     const updated = await Book.find({ isbn: req.params.isbn });
     res.json(updated);
   } catch (err) {
