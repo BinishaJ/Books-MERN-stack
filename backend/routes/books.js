@@ -7,8 +7,6 @@ const booksValidation = require("../validation");
 router.get("/", async (req, res) => {
   try {
     const books = await Book.find();
-    if (books.length < 1)
-      return res.status(404).json({ message: "No books in the list" });
     res.json(books);
   } catch (err) {
     res.json({ message: err });
