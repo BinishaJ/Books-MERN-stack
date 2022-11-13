@@ -50,7 +50,10 @@ function View() {
   const handleDelete = async (isbn) => {
     await axios
       .delete(`http://localhost:5000/api/books/${isbn}`)
-      .then((result) => getData())
+      .then((result) => {
+        alert(`Book ISBN ${isbn} deleted!`);
+        getData();
+      })
       .catch((error) => alert(error.response.data.message));
   };
 
