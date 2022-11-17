@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import "./styles.css";
+import { MdEdit, MdDelete } from "react-icons/md";
 
 function View() {
   const [data, setData] = useState([]);
@@ -72,83 +74,106 @@ function View() {
   return (
     <div>
       <h1>Books</h1>
-      <label>Search</label>
-      <input
-        onChange={handleSearch}
-        value={search}
-        type="number"
-        placeholder="Search for book by ISBN"
-      />
-      <button onClick={Search}>Search</button>
-      <form
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          width: "40%",
-          margin: "auto",
-        }}
-        onSubmit={handleSubmit}
-      >
-        <h1>Add New</h1>
-        <label>ISBN: </label>
+      <div style={{ margin: "20px 0px" }}>
+        <input
+          onChange={handleSearch}
+          value={search}
+          type="number"
+          className="search"
+          placeholder="Search for book by ISBN"
+        />
+        <button onClick={Search}>Search</button>
+      </div>
+      <form className="form" onSubmit={handleSubmit}>
+        <h1 style={{ textAlign: "center" }}>Add New</h1>
+        <label className="label">ISBN: </label>
         <input
           type="number"
           name="isbn"
           value={isbn}
           required
           onChange={handleChange}
+          className="input"
+          placeholder="ISBN"
+          autoFocus
         />
-        <label> Title: </label>
-        <input name="title" value={title} required onChange={handleChange} />
-        <label>Author: </label>
-        <input name="author" value={author} required onChange={handleChange} />
-        <label>Price: </label>
+        <label className="label"> Title: </label>
+        <input
+          name="title"
+          value={title}
+          required
+          onChange={handleChange}
+          className="input"
+          placeholder="Title"
+        />
+        <label className="label">Author: </label>
+        <input
+          name="author"
+          value={author}
+          required
+          onChange={handleChange}
+          className="input"
+          placeholder="Author"
+        />
+        <label className="label">Price: </label>
         <input
           type="number"
           name="price"
           value={price}
           required
           onChange={handleChange}
+          className="input"
+          placeholder="Price"
         />
-        <button type="submit">Submit</button>
+        <button type="submit" className="add">
+          Submit
+        </button>
       </form>
-      <table border="1">
-        <thead>
-          <tr>
-            <th>ISBN</th>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Price</th>
-          </tr>
-        </thead>
+      <div className="tableContainer">
+        <table border="1" className="table">
+          <thead>
+            <tr>
+              <th className="row head">ISBN</th>
+              <th className="row head">Title</th>
+              <th className="row head">Author</th>
+              <th className="row head">Price</th>
+              <th className="row head"></th>
+            </tr>
+          </thead>
 
-        {data.length > 0 ? (
-          <tbody>
-            {data.map((book) => {
-              return (
-                <tr key={book.isbn}>
-                  <td>{book.isbn}</td>
-                  <td>{book.title}</td>
-                  <td>{book.author}</td>
-                  <td>{book.price}</td>
-                  <td>
-                    <button onClick={() => handleDelete(book.isbn)}>
-                      Delete
-                    </button>
-                  </td>
-                  <td>
-                    <Link to={`/edit/${book.isbn}`}>
-                      <button>Edit</button>
-                    </Link>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        ) : (
-          <tbody></tbody>
-        )}
-      </table>
+          {data.length > 0 ? (
+            <tbody>
+              {data.map((book) => {
+                return (
+                  <tr key={book.isbn}>
+                    <td className="row">{book.isbn}</td>
+                    <td className="row">{book.title}</td>
+                    <td className="row">{book.author}</td>
+                    <td className="row">{book.price}</td>
+                    <td className="row">
+                      <i className="fa-sharp fa-solid fa-pen"></i>
+                      <MdDelete
+                        onClick={() => handleDelete(book.isbn)}
+                        style={{ color: "#ff0b0b" }}
+                        className="button"
+                      />
+
+                      <Link to={`/edit/${book.isbn}`}>
+                        <MdEdit
+                          className="button"
+                          style={{ color: "#0b4dff" }}
+                        />
+                      </Link>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          ) : (
+            <tbody></tbody>
+          )}
+        </table>
+      </div>
     </div>
   );
 }

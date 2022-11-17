@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import "./styles.css";
 
 const Edit = () => {
   const navigate = useNavigate();
@@ -51,31 +52,55 @@ const Edit = () => {
   return (
     <div>
       <h1>Books</h1>
-      <form
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          width: "40%",
-          margin: "auto",
-        }}
-        onSubmit={handleSubmit}
-      >
-        <h1>Edit</h1>
-        <label>ISBN: </label>
-        <input type="number" name="isbn" value={isbn} readOnly />
-        <label> Title: </label>
-        <input name="title" required value={title} onChange={handleChange} />
-        <label>Author: </label>
-        <input name="author" required value={author} onChange={handleChange} />
-        <label>Price: </label>
+      <form className="form" onSubmit={handleSubmit}>
+        <h1 style={{ textAlign: "center" }}>Edit</h1>
+        <label className="label">ISBN: </label>
+        <input
+          type="number"
+          name="isbn"
+          value={isbn}
+          required
+          onChange={handleChange}
+          className="input"
+          placeholder="ISBN"
+          readOnly
+        />
+        <label className="label"> Title: </label>
+        <input
+          name="title"
+          value={title}
+          required
+          onChange={handleChange}
+          className="input"
+          placeholder="Title"
+        />
+        <label className="label">Author: </label>
+        <input
+          name="author"
+          value={author}
+          required
+          onChange={handleChange}
+          className="input"
+          placeholder="Author"
+        />
+        <label className="label">Price: </label>
         <input
           type="number"
           name="price"
-          required
           value={price}
+          required
           onChange={handleChange}
+          className="input"
+          placeholder="Price"
         />
-        <button type="submit">Submit</button>
+        <div className="buttons">
+          <button type="submit" className="submit">
+            Submit
+          </button>
+          <button className="cancel" onClick={() => navigate("/")}>
+            Cancel
+          </button>
+        </div>
       </form>
     </div>
   );
